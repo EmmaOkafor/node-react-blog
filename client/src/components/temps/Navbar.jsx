@@ -1,11 +1,14 @@
-  // import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
-  // import AddIcCallIcon from '@mui/icons-material/AddIcCall';
-  // import BookIcon from '@mui/icons-material/Book';
-  // import RssFeedIcon from '@mui/icons-material/RssFeed';
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-
+import { Context } from "../../context/Context";
 
 function Navbar(){
+  const { user, dispatch } = useContext(Context);
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT"});
+  };
+
   return(
     <div>
       <ul className="nav-bar" >
@@ -22,7 +25,7 @@ function Navbar(){
             <Link className="nav-link rounded-5" id="contact-tab2" to="/write" data-bs-toggle="tab" role="tab" aria-selected="false">WRITE</Link>
             </li>
             <li className="nav-item">
-            <Link className="nav-link rounded-5" id="contact-tab2" to="/logout" data-bs-toggle="tab" role="tab" aria-selected="false">LOGOUT</Link>
+            <Link className="nav-link rounded-5" id="contact-tab2" onClick={handleLogout} to="/logout" data-bs-toggle="tab" role="tab" aria-selected="false">{ user && "LOGOUT"}</Link>
             </li>
         </ul>   
     </div>

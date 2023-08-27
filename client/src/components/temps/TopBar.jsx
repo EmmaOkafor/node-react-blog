@@ -3,8 +3,10 @@ import Person2Icon from '@mui/icons-material/Person2';
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Social from "./Social";
+import { useContext } from 'react';
+import { Context } from '../../context/Context';
 export default function TopBar() {
-  const isLogged = false;
+  const { user } = useContext(Context);
   return (
     <>
         <div className="row top-bar">
@@ -17,7 +19,7 @@ export default function TopBar() {
           </div>
           <div className="col-md-2 col-sm-2 padding-top-10">
           <div className='profile'>
-      {!isLogged ?
+      {!user ?
         <ul className='nav'>
           <li className="nav-item" role="presentation">
             <Link className="nav-link rounded-5" id="contact-tab2" to="/login"  data-bs-toggle="tab" role="tab" aria-selected="false">Login</Link>

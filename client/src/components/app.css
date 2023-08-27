@@ -444,3 +444,8 @@
   .justify{
       text-align: justify;
   } 
+
+  .loginButton:disabled{
+    cursor: not-allowed;
+    background-color: #2600ff;
+  }

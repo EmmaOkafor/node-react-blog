@@ -1,18 +1,47 @@
-import React from 'react'
-import Header from '../temps/Header'
+import React, { useContext, useRef } from 'react'
+import { Context } from '../../context/Context';
+import axios from 'axios';
 function Login() {
+  const userRef = useRef();
+  const passwordRef = useRef();
+  const { dispatch, isFetching } = useContext(Context);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch({type: "LOGIN_START"});
+    try {
+      const res = await axios.post("/auth/login", {
+        username:userRef.current.value,
+        password: passwordRef.current.value,
+      });
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data})
+    } catch (error) {
+      dispatch({ type: "LOGIN_FAILURE" });
+    }
+  };
+  
+
   return (
-    <div>
- 
-        <div className='wrapper row'>
-              <Header />
+    <div className='wrapper'>
+        <div className=' row'>
               <div className='login'>
                 <div className="col-sm-12">
-                  <form action="" method="post">
+                  <form onSubmit={handleSubmit} method="post">
                   <h5><strong>LOGIN</strong></h5>               
-                    <input className="form-control" type="text" name="username" value="" placeholder="Enter username" />
-                    <input className="form-control" type="password" name="password" value="" placeholder="Enter password" />
-                    <button className='form-control'>Login</button>
+                    <input 
+                      className="form-control" 
+                      type="text" 
+                      placeholder="Enter username" 
+                      ref={userRef}
+                      />
+                    <input 
+                      className="form-control" 
+                      type="password" 
+                      placeholder="Enter password" 
+                      ref={passwordRef}
+                      
+                      />
+                    <button type='submit' className='form-control loginButton' disabled={isFetching}>Login</button>
                   </form>
               </div>
               </div>
