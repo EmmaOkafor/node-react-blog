@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import Header from "../temps/Header";
+import SideBar from "../temps/SideBar";
 
 export default function SinglePost() {
   const location = useLocation();
@@ -22,26 +23,31 @@ export default function SinglePost() {
   }, [path]);
 
   return (
-    <div className="singlePost">
+    <div className="wrapper">
     <Header />
-      <div className="singlePostWrapper">
-        {post.photo && (
-          <img src={post.photo} alt="" className="singlePostimg" />
-        )}
-        <h1 className="singlePostTitle">{post.title}</h1>
-        <div className="singlePostInfo">
-          <span className="singlePostAuthor">
-            Author:
-           <Link to={`/?user=${post.username}`}>           
-            <b>{post.username}</b>
-           </Link>
-          </span>
-          <span className="singlePostDate">{new Date(post.createdAt).toDateString()}</span>
+        <div className="singlePost">
+          <div className="singlePostWrapper">
+            {post.photo && (
+              <img src={post.photo} alt="" className="singlePostimg" />
+            )}
+            <h1 className="singlePostTitle">{post.title}</h1>
+            <div className="singlePostInfo">
+              <span className="singlePostAuthor">
+                Author:
+              <Link to={`/?user=${post.username}`}>           
+                <b>{post.username}</b>
+              </Link>
+              </span>
+              <span className="singlePostDate">{new Date(post.createdAt).toDateString()}</span>
+            </div>
+            <p className="singlePostDesc">
+              {post.desc}
+            </p>
+          </div>
         </div>
-        <p className="singlePostDesc">
-          {post.desc}
-        </p>
-      </div>
+        <div className="side-bar">
+              <SideBar />
+        </div>
     </div>
   );
 }
